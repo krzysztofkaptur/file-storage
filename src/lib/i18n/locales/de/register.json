@@ -1,0 +1,10 @@
+{
+  "register": {
+    "title": "Create an account",
+    "email": "Email",
+    "password": "Password",
+    "submitBtn": "Sign up",
+    "loginText": "Already have an account?",
+    "link": "Sign in"
+  }
+}

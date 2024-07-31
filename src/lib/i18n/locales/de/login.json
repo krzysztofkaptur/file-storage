@@ -1,0 +1,11 @@
+{
+  "login": {
+    "title": "Sign in to your account",
+    "email": "Email",
+    "password": "Password",
+    "submitBtn": "Sign in",
+    "forgotPassword": "Forgot password?",
+    "registerText": "Need an account?",
+    "link": "Register"
+  }
+}
