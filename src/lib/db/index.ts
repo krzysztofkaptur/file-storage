@@ -1,2 +1,3 @@
 export { db } from './config'
-export { todos } from './models'
+export * from './posts'
+export * from './users'

@@ -20,12 +20,12 @@
     "baseUrl": "src/",
     "paths": {
       "@/*": ["*"],
-      "@/components": ["app/[lang]/components"],
-      "@/ui": ["app/[lang]/components/ui"],
-      "@/providers": ["app/[lang]/providers"],
+      "@/components": ["app/components"],
+      "@/ui": ["app/components/ui"],
+      "@/providers": ["app/providers"],
       "@/styles/*": ["app/styles/*"],
       "@/lib/*": ["lib/*"],
-      "@/hooks": ["app/[lang]/hooks"]
+      "@/hooks": ["app/hooks"]
     },
     "types": ["node", "@testing-library/jest-dom"]
   },
