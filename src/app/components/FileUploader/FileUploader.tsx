@@ -1,10 +1,11 @@
 'use client'
 
-import { saveFile } from '@/actions/storage'
 import { useEffect, useState, useTransition } from 'react'
 import { useDropzone } from 'react-dropzone'
 
 import { Button, Card, CardContent } from '@/ui'
+
+import { saveFile } from '@/actions/storage'
 
 import { Thumb } from './parts'
 
@@ -15,10 +16,8 @@ export const FileUploader = () => {
   const [files, setFiles] = useState<FileProps>([])
 
   const { getRootProps, getInputProps } = useDropzone({
-    accept: {
-      'image/*': [],
-    },
     onDrop: (acceptedFiles) => {
+      console.log(acceptedFiles)
       setFiles(
         acceptedFiles.map((file) => {
           return Object.assign(file, {
@@ -36,7 +35,7 @@ export const FileUploader = () => {
   const handleSaveFile = async () => {
     const form = new FormData()
 
-    form.append('fileUpload', files[0])
+    form.append('image', files[0])
     startTransition(() => saveFile(form))
   }
 

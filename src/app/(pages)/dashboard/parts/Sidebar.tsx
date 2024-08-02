@@ -21,7 +21,7 @@ export const DashboardSidebar = () => {
           <SidebarLabel label='Image transformations' />
           <SidebarItem
             href='/dashboard/files'
-            label='Files'
+            label='Images'
             icon={<Bell size={16} />}
           />
         </ScrollArea>
