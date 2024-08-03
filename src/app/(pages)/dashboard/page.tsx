@@ -1,4 +1,4 @@
-import { Bell } from 'lucide-react'
+import { Bell } from '@/lib/icons'
 
 import { PageHeader } from '@/components'
 

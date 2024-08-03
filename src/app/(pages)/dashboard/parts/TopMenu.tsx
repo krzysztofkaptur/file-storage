@@ -1,4 +1,4 @@
-import { Bell, Mail } from 'lucide-react'
+import { Bell, Mail } from '@/lib/icons'
 
 import { Avatar, DropdownMenu, Text, ThemeToggle, TopMenu } from '@/components'
 

@@ -1,9 +1,5 @@
-export type FilesListProps = {
-  images: FileListImage[]
-}
+import { FileObject } from '@supabase/storage-js'
 
-export type FileListImage = {
-  id: string
-  name: string
-  url: string
+export type FilesListProps = {
+  images: FileObject[] | null
 }

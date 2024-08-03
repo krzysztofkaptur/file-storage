@@ -15,7 +15,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html>
+    <html lang='en'>
       <body className={inter.className}>
         <ThemeProvider
           attribute='class'

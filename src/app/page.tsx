@@ -75,10 +75,10 @@ export default async function Home() {
       <Combobox />
       <DropdownMenu />
       <Pagination />
-      <Drawer />
       <Textarea />
       <Switch />
       <Tabs />
+      <Drawer />
       <Toast />
       <Tooltip />
       <Calendar />

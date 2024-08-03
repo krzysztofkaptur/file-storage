@@ -1,4 +1,4 @@
-import { Bell } from 'lucide-react'
+import { Bell } from '@/lib/icons'
 
 import { Logo, Sidebar, SidebarItem, SidebarLabel } from '@/components'
 
