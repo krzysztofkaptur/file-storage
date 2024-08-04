@@ -4,6 +4,8 @@ import { Logo, Sidebar, SidebarItem, SidebarLabel } from '@/components'
 
 import { ScrollArea } from '@/ui'
 
+const ICON_SIZE = 14
+
 export const DashboardSidebar = () => {
   return (
     <Sidebar>
@@ -16,13 +18,13 @@ export const DashboardSidebar = () => {
           <SidebarItem
             href='/dashboard'
             label='Dashboard'
-            icon={<Bell size={16} />}
+            icon={<Bell size={ICON_SIZE} />}
           />
           <SidebarLabel label='Image transformations' />
           <SidebarItem
             href='/dashboard/files'
             label='Images'
-            icon={<Bell size={16} />}
+            icon={<Bell size={ICON_SIZE} />}
           />
         </ScrollArea>
       </div>

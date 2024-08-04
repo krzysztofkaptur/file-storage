@@ -1,24 +1,22 @@
 import type { PropsWithChildren } from 'react'
+import type { ReactNode } from 'react'
 
-import {
-  Button,
-  Input,
-  Label,
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/ui'
+import { Sheet, SheetContent, SheetTrigger } from '@/ui'
 
-type DrawerProps = PropsWithChildren<any>
+export type DrawerProps = PropsWithChildren<{
+  open: boolean
+  trigger: ReactNode
+  onOpenChange: (e: any) => void
+}>
 
-export const Drawer = ({ trigger, children }: DrawerProps) => {
+export const Drawer = ({
+  trigger,
+  children,
+  open,
+  onOpenChange,
+}: DrawerProps) => {
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetTrigger asChild>{trigger}</SheetTrigger>
       <SheetContent>{children}</SheetContent>
     </Sheet>
