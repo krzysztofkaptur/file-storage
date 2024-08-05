@@ -20,5 +20,7 @@ export function formatDate(dateStr: string) {
     day: 'numeric',
   } as const
 
-  return new Date(dateStr).toLocaleDateString(navigator.language, options)
+  if (navigator) {
+    return new Date(dateStr).toLocaleDateString(navigator.language, options)
+  }
 }

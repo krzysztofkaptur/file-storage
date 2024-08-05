@@ -59,6 +59,7 @@ export const FileDetailsDrawer = ({
               </span>
             </div>
           </div>
+          {/* todo: add image deletion */}
           <SheetFooter>
             <SheetClose asChild>
               <Button type='submit'>Save changes</Button>

@@ -1,10 +1,19 @@
 import Link from 'next/link'
 
-import { PageHeader } from '@/components'
+import { Drawer, FileUploader, PageHeader } from '@/components'
+
+import {
+  Button,
+  SheetClose,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+} from '@/ui'
 
 import { fetchFiles } from '@/actions/storage'
 
-import { FilesList } from './parts'
+import { FileUploadDrawer, FilesList } from './parts'
 
 export default async function FilesPage() {
   const { data, error } = await fetchFiles()
@@ -17,7 +26,7 @@ export default async function FilesPage() {
     <>
       <PageHeader title='Images' className='flex items-center justify-between'>
         {/* todo: change it from separate page to drawer */}
-        <Link href='/dashboard/files/add'>Add image</Link>
+        <FileUploadDrawer />
       </PageHeader>
 
       <FilesList images={data} />

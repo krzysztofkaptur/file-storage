@@ -4,9 +4,9 @@ import type { ReactNode } from 'react'
 import { Sheet, SheetContent, SheetTrigger } from '@/ui'
 
 export type DrawerProps = PropsWithChildren<{
-  open: boolean
+  open?: boolean
   trigger: ReactNode
-  onOpenChange: (e: any) => void
+  onOpenChange?: (e: any) => void
 }>
 
 export const Drawer = ({

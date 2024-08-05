@@ -11,7 +11,11 @@ import { Thumb } from './parts'
 
 type FileProps = (File & { preview: string })[]
 
-export const FileUploader = () => {
+type FileUploaderProps = {
+  render: ({ handleSaveFile }: { handleSaveFile: () => void }) => JSX.Element
+}
+
+export const FileUploader = ({ render }: FileUploaderProps) => {
   const [pending, startTransition] = useTransition()
   const [files, setFiles] = useState<FileProps>([])
 
@@ -53,7 +57,7 @@ export const FileUploader = () => {
                 <Thumb key={file.name}>
                   {/* eslint-disable-next-line */}
                   <img
-                    alt=''
+                    alt={file.name}
                     src={file.preview}
                     onLoad={() => {
                       URL.revokeObjectURL(file.preview)
@@ -65,7 +69,7 @@ export const FileUploader = () => {
           </div>
         </CardContent>
       </Card>
-      <Button onClick={handleSaveFile}>Save</Button>
+      {render({ handleSaveFile })}
     </>
   )
 }
