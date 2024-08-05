@@ -1,22 +1,25 @@
 'use client'
 
-import Link from 'next/link'
+import { useState } from 'react'
 
-import { Drawer, FileUploader, PageHeader } from '@/components'
+import { Button, Drawer, FileUploader } from '@/components'
 
-import {
-  Button,
-  SheetClose,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-} from '@/ui'
+import { SheetDescription, SheetFooter, SheetHeader, SheetTitle } from '@/ui'
 
 export const FileUploadDrawer = () => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const closeDrawer = () => {
+    setIsOpen(false)
+  }
+
   return (
     <>
-      <Drawer trigger={<Button variant='ghost'>Add image</Button>}>
+      <Drawer
+        trigger={<Button variant='ghost'>Add image</Button>}
+        open={isOpen}
+        onOpenChange={setIsOpen}
+      >
         <div className='flex flex-col justify-between h-full'>
           <div className='flex flex-col gap-4 h-full'>
             <SheetHeader>
@@ -25,14 +28,17 @@ export const FileUploadDrawer = () => {
             </SheetHeader>
             <div className='flex flex-col flex-1 justify-between'>
               <FileUploader
-                render={({ handleSaveFile }) => {
+                onFinish={closeDrawer}
+                render={({ handleSaveFile, pending }) => {
                   return (
                     <SheetFooter>
-                      <SheetClose asChild>
-                        <Button type='submit' onClick={handleSaveFile}>
-                          Add image
-                        </Button>
-                      </SheetClose>
+                      <Button
+                        type='submit'
+                        isLoading={pending}
+                        onClick={handleSaveFile}
+                      >
+                        Add image
+                      </Button>
                     </SheetFooter>
                   )
                 }}

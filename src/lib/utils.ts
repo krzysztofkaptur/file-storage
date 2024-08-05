@@ -20,7 +20,5 @@ export function formatDate(dateStr: string) {
     day: 'numeric',
   } as const
 
-  if (navigator) {
-    return new Date(dateStr).toLocaleDateString(navigator.language, options)
-  }
+  return new Date(dateStr).toLocaleDateString('en-US', options)
 }

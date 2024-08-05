@@ -3,7 +3,7 @@
 import { useEffect, useState, useTransition } from 'react'
 import { useDropzone } from 'react-dropzone'
 
-import { Button, Card, CardContent } from '@/ui'
+import { Card, CardContent } from '@/ui'
 
 import { saveFile } from '@/actions/storage'
 
@@ -12,16 +12,22 @@ import { Thumb } from './parts'
 type FileProps = (File & { preview: string })[]
 
 type FileUploaderProps = {
-  render: ({ handleSaveFile }: { handleSaveFile: () => void }) => JSX.Element
+  onFinish: () => void
+  render: ({
+    handleSaveFile,
+    pending,
+  }: {
+    handleSaveFile: () => void
+    pending: boolean
+  }) => JSX.Element
 }
 
-export const FileUploader = ({ render }: FileUploaderProps) => {
+export const FileUploader = ({ render, onFinish }: FileUploaderProps) => {
   const [pending, startTransition] = useTransition()
   const [files, setFiles] = useState<FileProps>([])
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFiles) => {
-      console.log(acceptedFiles)
       setFiles(
         acceptedFiles.map((file) => {
           return Object.assign(file, {
@@ -40,13 +46,13 @@ export const FileUploader = ({ render }: FileUploaderProps) => {
     const form = new FormData()
 
     form.append('image', files[0])
-    startTransition(() => saveFile(form))
+    startTransition(() => saveFile(form).then(() => onFinish()))
   }
 
   return (
     <>
       <Card>
-        <CardContent className='grid grid-cols-2 gap-4'>
+        <CardContent>
           <div>
             <div {...getRootProps({ className: 'dropzone' })}>
               <input {...getInputProps()} />
@@ -69,7 +75,7 @@ export const FileUploader = ({ render }: FileUploaderProps) => {
           </div>
         </CardContent>
       </Card>
-      {render({ handleSaveFile })}
+      {render({ handleSaveFile, pending })}
     </>
   )
 }

@@ -1,22 +1,17 @@
 'use client'
 
+import { Download } from '@/lib/icons'
 import type { FileObject } from '@/lib/storage'
 import { bytesToSize } from '@/lib/utils'
 import Image from 'next/image'
+import { useTransition } from 'react'
 
-import { Drawer } from '@/components'
-import { DrawerProps } from '@/components'
+import { Button, Drawer } from '@/components'
+import type { DrawerProps } from '@/components'
 
-import {
-  Button,
-  SheetClose,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-} from '@/ui'
+import { SheetDescription, SheetFooter, SheetHeader, SheetTitle } from '@/ui'
 
-import { deleteFile } from '@/actions/storage'
+import { deleteFile, downloadFile } from '@/actions/storage'
 
 type FileDetailsDrawerProps = DrawerProps & {
   imageData: FileObject & { url: string }
@@ -28,7 +23,17 @@ export const FileDetailsDrawer = ({
   imageData,
   onOpenChange,
 }: FileDetailsDrawerProps) => {
-  const handleDeleteImage = () => deleteFile([imageData.name])
+  const [pending, startTransition] = useTransition()
+  const handleDelete = () => {
+    startTransition(() => deleteFile([imageData.name]))
+  }
+
+  const handleDownload = async () => {
+    // todo: handle download
+    const { data, error } = await downloadFile(imageData.name)
+
+    console.log({ data, error })
+  }
 
   return (
     <Drawer open={open} trigger={trigger} onOpenChange={onOpenChange}>
@@ -63,13 +68,15 @@ export const FileDetailsDrawer = ({
                   {bytesToSize(imageData.metadata?.size)}
                 </span>
               </div>
+              <Button onClick={handleDownload}>
+                <Download size={16} />
+              </Button>
             </div>
           </div>
-          {/* todo: add image deletion */}
           <SheetFooter>
-            <SheetClose asChild>
-              <Button onClick={handleDeleteImage}>Delete</Button>
-            </SheetClose>
+            <Button isLoading={pending} onClick={handleDelete}>
+              Delete
+            </Button>
           </SheetFooter>
         </div>
       )}

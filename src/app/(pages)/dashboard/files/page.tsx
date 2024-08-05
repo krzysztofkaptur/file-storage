@@ -25,7 +25,6 @@ export default async function FilesPage() {
   return (
     <>
       <PageHeader title='Images' className='flex items-center justify-between'>
-        {/* todo: change it from separate page to drawer */}
         <FileUploadDrawer />
       </PageHeader>
 

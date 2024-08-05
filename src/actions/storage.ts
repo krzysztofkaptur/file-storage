@@ -47,6 +47,19 @@ export const deleteFile = async (paths: string[]) => {
     .remove(paths)
 
   revalidatePath('/dashboard/files')
+}
 
-  return { data, error }
+export const downloadFile = async (path: string) => {
+  const { data, error } = await supabase.storage
+    .from(FILE_STORAGE)
+    .download(path)
+
+  const arrBuffer = await data?.arrayBuffer()
+
+  let dataObj = {
+    image: new Uint8Array(arrBuffer!),
+    name: path,
+  }
+
+  return { data: dataObj, error }
 }
