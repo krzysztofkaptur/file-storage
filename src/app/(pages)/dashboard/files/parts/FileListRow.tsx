@@ -25,7 +25,7 @@ export const FileListRow = ({ image }: FileListRowProps) => {
   const fetchImage = useCallback(async () => {
     const { data } = await fetchUrl(image.name)
 
-    setImageData((prev) => ({ ...prev, url: data?.signedUrl! }))
+    setImageData((prev) => ({ ...prev, url: data?.publicUrl }))
   }, [image.name])
 
   useEffect(() => {

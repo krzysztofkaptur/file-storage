@@ -6,7 +6,7 @@ import { fetchFiles } from '@/actions/storage'
 
 import { FileUploadDrawer, FilesList } from './parts'
 
-export default async function FilesPage(props: PageProps<{}, {}>) {
+export default async function FilesPage({}: PageProps<{}, {}>) {
   const { data, error } = await fetchFiles()
 
   if (error) {

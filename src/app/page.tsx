@@ -1,3 +1,6 @@
+import { createClient } from '@/lib/utils/supabase/server'
+import { redirect } from 'next/navigation'
+
 import {
   Avatar,
   Badge,
@@ -57,11 +60,19 @@ const selectOptions = [
 ]
 
 export default async function Home() {
-  const footerSample = <Badge text='badge' />
+  const supabase = createClient()
+
+  const { data, error } = await supabase.auth.getUser()
+  if (error || !data?.user) {
+    redirect('/login')
+  }
+
+  // const footerSample = <Badge text='badge' />
 
   return (
     <main>
-      <Card footer={footerSample}>Some content</Card>
+      <p>Hello {data.user.email}</p>
+      {/* <Card footer={footerSample}>Some content</Card> */}
       {/* <ThemeToggle />
       <Avatar src='https://github.com/shadcn.png' alt='@shadcn' fallback='CN' />
       <InputGroup name='test' label='Test' />

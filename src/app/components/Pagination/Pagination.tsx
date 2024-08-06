@@ -1,11 +1,11 @@
 import {
-  Pagination as UiPagination,
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  Pagination as UiPagination,
 } from '@/ui'
 
 export const Pagination = () => {

@@ -22,10 +22,10 @@ export const saveFile = async (formData: FormData) => {
   console.log({ error })
 }
 
-export const fetchFiles = async () => {
+export const fetchFiles = async (limit: number = 100, offset: number = 0) => {
   const { data, error } = await supabase.storage.from(FILE_STORAGE).list('', {
-    limit: 10,
-    offset: 0,
+    limit,
+    offset,
     sortBy: { column: 'name', order: 'asc' },
   })
 
@@ -33,11 +33,9 @@ export const fetchFiles = async () => {
 }
 
 export const fetchUrl = async (path: string) => {
-  const { data, error } = await supabase.storage
-    .from(FILE_STORAGE)
-    .createSignedUrl(path, 60 * 60)
+  const { data } = supabase.storage.from(FILE_STORAGE).getPublicUrl(path)
 
-  return { data, error }
+  return { data }
 }
 
 export const deleteFile = async (paths: string[]) => {

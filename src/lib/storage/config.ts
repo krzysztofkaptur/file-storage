@@ -1,5 +1,8 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabase = createClient(process.env.BE_URL!, process.env.API_SECRET!)
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.API_SECRET!
+)
 
 export { supabase }
