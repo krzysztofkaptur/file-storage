@@ -1,21 +1,12 @@
-import Link from 'next/link'
+import type { PageProps } from '@/types'
 
-import { Drawer, FileUploader, PageHeader } from '@/components'
-
-import {
-  Button,
-  SheetClose,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-} from '@/ui'
+import { PageHeader } from '@/components'
 
 import { fetchFiles } from '@/actions/storage'
 
 import { FileUploadDrawer, FilesList } from './parts'
 
-export default async function FilesPage() {
+export default async function FilesPage(props: PageProps<{}, {}>) {
   const { data, error } = await fetchFiles()
 
   if (error) {

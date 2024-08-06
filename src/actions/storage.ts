@@ -5,7 +5,6 @@ import { revalidatePath } from 'next/cache'
 
 const FILE_STORAGE = process.env.FILE_STORAGE!
 
-// todo: move bucket name to .env
 export const saveFile = async (formData: FormData) => {
   const file = formData.get('image') as File
   const fileName = file.name
@@ -25,7 +24,7 @@ export const saveFile = async (formData: FormData) => {
 
 export const fetchFiles = async () => {
   const { data, error } = await supabase.storage.from(FILE_STORAGE).list('', {
-    limit: 100,
+    limit: 10,
     offset: 0,
     sortBy: { column: 'name', order: 'asc' },
   })
@@ -50,16 +49,9 @@ export const deleteFile = async (paths: string[]) => {
 }
 
 export const downloadFile = async (path: string) => {
-  const { data, error } = await supabase.storage
-    .from(FILE_STORAGE)
-    .download(path)
+  const { data } = supabase.storage.from(FILE_STORAGE).getPublicUrl(path, {
+    download: true,
+  })
 
-  const arrBuffer = await data?.arrayBuffer()
-
-  let dataObj = {
-    image: new Uint8Array(arrBuffer!),
-    name: path,
-  }
-
-  return { data: dataObj, error }
+  return { data }
 }

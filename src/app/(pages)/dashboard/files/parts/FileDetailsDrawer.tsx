@@ -2,7 +2,7 @@
 
 import { Download } from '@/lib/icons'
 import type { FileObject } from '@/lib/storage'
-import { bytesToSize } from '@/lib/utils'
+import { bytesToSize, downloadFile as downloadFileUtil } from '@/lib/utils'
 import Image from 'next/image'
 import { useTransition } from 'react'
 
@@ -29,10 +29,9 @@ export const FileDetailsDrawer = ({
   }
 
   const handleDownload = async () => {
-    // todo: handle download
-    const { data, error } = await downloadFile(imageData.name)
+    const { data } = await downloadFile(imageData.name)
 
-    console.log({ data, error })
+    downloadFileUtil(imageData.name, data.publicUrl)
   }
 
   return (

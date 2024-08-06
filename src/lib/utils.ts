@@ -22,3 +22,12 @@ export function formatDate(dateStr: string) {
 
   return new Date(dateStr).toLocaleDateString('en-US', options)
 }
+
+export function downloadFile(name: string, url: string) {
+  const link = document.createElement('a')
+  link.setAttribute('download', name)
+  link.href = url
+  document.body.appendChild(link)
+  link.click()
+  link.remove()
+}

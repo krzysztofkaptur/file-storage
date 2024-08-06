@@ -25,7 +25,8 @@
       "@/providers": ["app/providers"],
       "@/styles/*": ["app/styles/*"],
       "@/lib/*": ["lib/*"],
-      "@/hooks": ["app/hooks"]
+      "@/hooks": ["app/hooks"],
+      "@/types": ["types"]
     },
     "types": ["node", "@testing-library/jest-dom"]
   },
