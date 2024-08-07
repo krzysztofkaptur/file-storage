@@ -11,7 +11,7 @@ export const DashboardTopMenu = async () => {
 
   const { data, error } = await supabase.auth.getUser()
   if (error || !data?.user) {
-    redirect('/login')
+    redirect('/auth/login')
   }
 
   return (

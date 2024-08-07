@@ -17,9 +17,6 @@ export const saveFile = async (formData: FormData) => {
     })
 
   revalidatePath('/dashboard/files')
-
-  console.log({ data })
-  console.log({ error })
 }
 
 export const fetchFiles = async (limit: number = 100, offset: number = 0) => {

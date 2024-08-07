@@ -26,7 +26,8 @@
       "@/styles/*": ["app/styles/*"],
       "@/lib/*": ["lib/*"],
       "@/hooks": ["app/hooks"],
-      "@/types": ["types"]
+      "@/types": ["types"],
+      "@/actions": ["actions"]
     },
     "types": ["node", "@testing-library/jest-dom"]
   },

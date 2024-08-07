@@ -1,20 +1,21 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
-import Link from 'next/link'
-
-import { Form, InputGroup, Text, Divider } from '@/components'
-import { Button } from '@/ui'
 import { LoginSchema, schemaResolver } from '@/lib/validation'
+import Link from 'next/link'
+import { useForm } from 'react-hook-form'
+
+import { Button, Divider, Form, InputGroup, Text } from '@/components'
+
+import { login } from '@/actions/auth'
 
 export const LoginContent = () => {
   const form = useForm({
     resolver: schemaResolver(LoginSchema),
   })
 
-  const onSubmit = form.handleSubmit((values) => {
-    console.log({ values })
-  })
+  const onSubmit = form.handleSubmit(({ email, password }) =>
+    login({ email, password })
+  )
 
   return (
     <div className='w-full max-w-md'>
@@ -22,13 +23,13 @@ export const LoginContent = () => {
         <div className='flex w-full max-w-md flex-col gap-6 self-center p-4'>
           <Text className='text-xl'>Sign in</Text>
           <InputGroup
-            label="Email"
+            label='Email'
             placeholder='yourname@provider.com'
             error={form.formState?.errors?.email?.message}
             {...form.register('email')}
           />
           <InputGroup
-            label="Password"
+            label='Password'
             type='password'
             {...form.register('password')}
           />
@@ -38,7 +39,8 @@ export const LoginContent = () => {
           </Text>
           <Divider />
           <Text className='text-sm'>
-            Don&apos;t have an account <Link href='/auth/register'>Register</Link>
+            Don&apos;t have an account{' '}
+            <Link href='/auth/register'>Register</Link>
           </Text>
         </div>
       </Form>

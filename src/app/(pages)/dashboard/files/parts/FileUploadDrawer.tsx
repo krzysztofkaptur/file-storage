@@ -16,7 +16,7 @@ export const FileUploadDrawer = () => {
   return (
     <>
       <Drawer
-        trigger={<Button variant='ghost'>Add image</Button>}
+        trigger={<Button variant='secondary'>Add image</Button>}
         open={isOpen}
         onOpenChange={setIsOpen}
       >

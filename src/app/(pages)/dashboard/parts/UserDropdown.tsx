@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Cloud,
   CreditCard,
@@ -27,7 +29,13 @@ import {
   DropdownMenuSubTrigger,
 } from '@/ui'
 
+import { logout } from '@/actions/auth'
+
 export const UserDropdown = () => {
+  const handleLogout = async () => {
+    await logout()
+  }
+
   return (
     <>
       <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -103,7 +111,7 @@ export const UserDropdown = () => {
         <span>API</span>
       </DropdownMenuItem>
       <DropdownMenuSeparator />
-      <DropdownMenuItem>
+      <DropdownMenuItem onClick={handleLogout}>
         <LogOut className='mr-2 h-4 w-4' />
         <span>Log out</span>
         <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>

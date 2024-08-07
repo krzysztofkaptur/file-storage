@@ -1,20 +1,23 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
-import Link from 'next/link'
-
-import { Form, InputGroup, Text, Divider } from '@/components'
-import { Button } from '@/ui'
 import { RegisterSchema, schemaResolver } from '@/lib/validation'
+import Link from 'next/link'
+import { useForm } from 'react-hook-form'
+
+import { Divider, Form, InputGroup, Text } from '@/components'
+
+import { Button } from '@/ui'
+
+import { register } from '@/actions/auth'
 
 export const RegisterContent = () => {
   const form = useForm({
     resolver: schemaResolver(RegisterSchema),
   })
 
-  const onSubmit = form.handleSubmit((values) => {
-    console.log({ values })
-  })
+  const onSubmit = form.handleSubmit(async ({ email, password }) =>
+    register({ email, password })
+  )
 
   return (
     <div className='w-full max-w-md'>
@@ -22,14 +25,15 @@ export const RegisterContent = () => {
         <div className='flex w-full max-w-md flex-col gap-6 self-center p-4'>
           <Text className='text-xl'>Sign up</Text>
           <InputGroup
-            label="Email"
+            label='Email'
             placeholder='yourname@provider.com'
             error={form.formState?.errors?.email?.message}
             {...form.register('email')}
           />
           <InputGroup
-            label="Password"
+            label='Password'
             type='password'
+            error={form.formState?.errors?.password?.message}
             {...form.register('password')}
           />
           <Button>Sign up</Button>
