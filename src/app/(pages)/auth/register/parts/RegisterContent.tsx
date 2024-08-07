@@ -15,9 +15,13 @@ export const RegisterContent = () => {
     resolver: schemaResolver(RegisterSchema),
   })
 
-  const onSubmit = form.handleSubmit(async ({ email, password }) =>
-    register({ email, password })
-  )
+  const onSubmit = form.handleSubmit(async ({ email, password }) => {
+    const response = await register({ email, password })
+
+    if (response?.message) {
+      form.setError('email', { type: 'custom', message: response.message })
+    }
+  })
 
   return (
     <div className='w-full max-w-md'>

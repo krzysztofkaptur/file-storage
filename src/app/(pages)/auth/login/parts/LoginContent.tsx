@@ -13,9 +13,13 @@ export const LoginContent = () => {
     resolver: schemaResolver(LoginSchema),
   })
 
-  const onSubmit = form.handleSubmit(({ email, password }) =>
-    login({ email, password })
-  )
+  const onSubmit = form.handleSubmit(async ({ email, password }) => {
+    const response = await login({ email, password })
+
+    if (response?.message) {
+      form.setError('email', { type: 'custom', message: response.message })
+    }
+  })
 
   return (
     <div className='w-full max-w-md'>

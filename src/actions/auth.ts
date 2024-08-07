@@ -11,7 +11,9 @@ export async function login({ email, password }: LoginCredentials) {
   const { error } = await supabase.auth.signInWithPassword({ email, password })
 
   if (error) {
-    redirect('/error')
+    return {
+      message: error.message,
+    }
   }
 
   revalidatePath('/dashboard', 'page')
@@ -24,7 +26,9 @@ export async function register({ email, password }: RegisterCredentials) {
   const { error } = await supabase.auth.signUp({ email, password })
 
   if (error) {
-    redirect('/error')
+    return {
+      message: error.message,
+    }
   }
 
   revalidatePath('/dashboard', 'page')
