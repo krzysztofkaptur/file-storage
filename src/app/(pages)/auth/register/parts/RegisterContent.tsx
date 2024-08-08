@@ -2,6 +2,7 @@
 
 import { RegisterSchema, schemaResolver } from '@/lib/validation'
 import Link from 'next/link'
+import { PropsWithChildren } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Divider, Form, InputGroup, Text } from '@/components'
@@ -10,7 +11,9 @@ import { Button } from '@/ui'
 
 import { register } from '@/actions/auth'
 
-export const RegisterContent = () => {
+type RegisterContentProps = PropsWithChildren<{}>
+
+export const RegisterContent = ({ children }: RegisterContentProps) => {
   const form = useForm({
     resolver: schemaResolver(RegisterSchema),
   })
@@ -25,9 +28,13 @@ export const RegisterContent = () => {
 
   return (
     <div className='w-full max-w-md'>
+      <div className='flex flex-col gap-6 p-4'>
+        <Text className='text-xl'>Sign up</Text>
+        {children}
+        <Divider />
+      </div>
       <Form {...form} onSubmit={onSubmit}>
         <div className='flex w-full max-w-md flex-col gap-6 self-center p-4'>
-          <Text className='text-xl'>Sign up</Text>
           <InputGroup
             label='Email'
             placeholder='yourname@provider.com'

@@ -1,8 +1,13 @@
 'use server'
 
 import { createClient } from '@/lib/utils/supabase/server'
-import type { LoginCredentials, RegisterCredentials } from '@/types/auth'
+import type {
+  LoginCredentials,
+  LoginOAuth,
+  RegisterCredentials,
+} from '@/types/auth'
 import { revalidatePath } from 'next/cache'
+import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 export async function login({ email, password }: LoginCredentials) {
@@ -18,6 +23,24 @@ export async function login({ email, password }: LoginCredentials) {
 
   revalidatePath('/dashboard', 'page')
   redirect('/dashboard')
+}
+
+export async function loginWithOAuth({ provider }: LoginOAuth) {
+  const supabase = createClient()
+  const origin = headers().get('origin')
+
+  const { error, data } = await supabase.auth.signInWithOAuth({
+    provider,
+    options: {
+      redirectTo: `${origin}/auth/callback`,
+    },
+  })
+
+  if (error) {
+    console.log(error)
+  } else {
+    return redirect(data.url)
+  }
 }
 
 export async function register({ email, password }: RegisterCredentials) {
