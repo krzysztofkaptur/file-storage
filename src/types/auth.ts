@@ -10,3 +10,7 @@ export type RegisterCredentials = {
   email: Email
   password: Password
 }
+
+export type LoginOAuth = {
+  provider: 'github'
+}

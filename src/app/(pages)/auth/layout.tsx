@@ -1,6 +1,4 @@
-import { createClient } from '@/lib/utils/supabase/server'
 import type { Metadata } from 'next'
-import { redirect } from 'next/navigation'
 import { PropsWithChildren } from 'react'
 
 export const metadata: Metadata = {
@@ -9,13 +7,6 @@ export const metadata: Metadata = {
 }
 
 export default async function AuthLayout({ children }: PropsWithChildren) {
-  const supabase = createClient()
-
-  const { error } = await supabase.auth.getUser()
-  // if (!error) {
-  //   redirect('/dashboard')
-  // }
-
   return (
     <main>
       <section className='flex min-h-screen w-full'>

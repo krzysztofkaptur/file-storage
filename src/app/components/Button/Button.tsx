@@ -8,7 +8,12 @@ type ButtonPropsType = PropsWithChildren<ButtonProps & { isLoading?: boolean }>
 export const Button = ({
   isLoading = false,
   children,
+  type = 'button',
   ...props
 }: ButtonPropsType) => {
-  return <ButtonUI {...props}>{!isLoading ? children : <Spinner />}</ButtonUI>
+  return (
+    <ButtonUI type={type} {...props}>
+      {!isLoading ? children : <Spinner />}
+    </ButtonUI>
+  )
 }
