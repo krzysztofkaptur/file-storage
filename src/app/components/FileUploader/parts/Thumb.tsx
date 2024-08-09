@@ -1,5 +1,8 @@
+import { cn } from '@/lib/utils'
 import { PropsWithChildren } from 'react'
 
-export const Thumb = ({ children }: PropsWithChildren) => {
-  return <div className='w-24'>{children}</div>
+type ThumbProps = PropsWithChildren<{ className: string }>
+
+export const Thumb = ({ className, children }: ThumbProps) => {
+  return <div className={cn('w-24', className)}>{children}</div>
 }

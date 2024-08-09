@@ -47,53 +47,60 @@ export const FileUploader = ({ render, onFinish }: FileUploaderProps) => {
   }, [files])
 
   const handleSaveFile = async () => {
-    const form = new FormData()
-    const { data, error } = await supabase.auth.getSession()
+    await files.map((file) => {
+      const form = new FormData()
+      form.append('file', file)
 
-    if (error) {
-      // todo: handle error
-      console.log(error)
-    }
-
-    form.append('file', files[0])
-    startTransition(() => saveFile(form).then(() => onFinish()))
+      // todo: wait for every file to upload before hiding the drawer
+      startTransition(() => saveFile(form).then(() => onFinish()))
+    })
   }
 
   return (
     <>
-      <Card>
-        <CardContent>
-          <div>
-            <div {...getRootProps({ className: 'dropzone' })}>
-              <input {...getInputProps()} />
-              <p>Drag & drop some files here, or click to select files</p>
-            </div>
+      <div className='flex flex-col gap-8'>
+        <Card>
+          <CardContent>
             <div>
-              {files.map((file) => {
-                return (
-                  <>
-                    {file.type.includes('image') ? (
-                      <Thumb key={file.name}>
-                        {/* eslint-disable-next-line */}
-                        <img
-                          alt={file.name}
-                          src={file.preview}
-                          onLoad={() => {
-                            URL.revokeObjectURL(file.preview)
-                          }}
-                        />
-                      </Thumb>
-                    ) : (
-                      <File />
-                    )}
-                    <span className='break-all'>{file.name}</span>
-                  </>
-                )
-              })}
+              <div {...getRootProps({ className: 'dropzone' })}>
+                <input {...getInputProps()} />
+                <p>Drag & drop some files here, or click to select files</p>
+              </div>
             </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+        <div className='flex flex-wrap gap-4'>
+          {files.map((file) => {
+            return (
+              <div
+                key={file.name}
+                className='flex flex-col justify-between flex-1 items-center'
+              >
+                {file.type.includes('image') ? (
+                  <Thumb
+                    key={file.name}
+                    className='flex flex-1 items-center justify-center'
+                  >
+                    {/* eslint-disable-next-line */}
+                    <img
+                      alt={file.name}
+                      src={file.preview}
+                      onLoad={() => {
+                        URL.revokeObjectURL(file.preview)
+                      }}
+                    />
+                  </Thumb>
+                ) : (
+                  <div className='flex flex-1 items-center justify-center'>
+                    <File />
+                  </div>
+                )}
+                <p>{file.name}</p>
+              </div>
+            )
+          })}
+        </div>
+      </div>
       {render({ handleSaveFile, pending })}
     </>
   )
