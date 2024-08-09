@@ -1,10 +1,11 @@
 'use client'
 
+import { File } from '@/lib/icons'
 import { createClient } from '@/lib/utils/supabase/client'
 import { useEffect, useState, useTransition } from 'react'
 import { useDropzone } from 'react-dropzone'
 
-import { Card, CardContent } from '@/ui'
+import { Card, CardContent, TextEllipsis } from '@/ui'
 
 import { saveFile } from '@/actions/storage'
 
@@ -54,7 +55,7 @@ export const FileUploader = ({ render, onFinish }: FileUploaderProps) => {
       console.log(error)
     }
 
-    form.append('image', files[0])
+    form.append('file', files[0])
     startTransition(() => saveFile(form).then(() => onFinish()))
   }
 
@@ -68,18 +69,27 @@ export const FileUploader = ({ render, onFinish }: FileUploaderProps) => {
               <p>Drag & drop some files here, or click to select files</p>
             </div>
             <div>
-              {files.map((file) => (
-                <Thumb key={file.name}>
-                  {/* eslint-disable-next-line */}
-                  <img
-                    alt={file.name}
-                    src={file.preview}
-                    onLoad={() => {
-                      URL.revokeObjectURL(file.preview)
-                    }}
-                  />
-                </Thumb>
-              ))}
+              {files.map((file) => {
+                return (
+                  <>
+                    {file.type.includes('image') ? (
+                      <Thumb key={file.name}>
+                        {/* eslint-disable-next-line */}
+                        <img
+                          alt={file.name}
+                          src={file.preview}
+                          onLoad={() => {
+                            URL.revokeObjectURL(file.preview)
+                          }}
+                        />
+                      </Thumb>
+                    ) : (
+                      <File />
+                    )}
+                    <span className='break-all'>{file.name}</span>
+                  </>
+                )
+              })}
             </div>
           </div>
         </CardContent>

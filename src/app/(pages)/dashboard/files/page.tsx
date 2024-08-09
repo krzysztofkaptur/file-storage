@@ -15,11 +15,11 @@ export default async function FilesPage({}: PageProps<{}, {}>) {
 
   return (
     <>
-      <PageHeader title='Images' className='flex items-center justify-between'>
+      <PageHeader title='Files' className='flex items-center justify-between'>
         <FileUploadDrawer />
       </PageHeader>
 
-      <FilesList images={data} />
+      <FilesList files={data} />
     </>
   )
 }

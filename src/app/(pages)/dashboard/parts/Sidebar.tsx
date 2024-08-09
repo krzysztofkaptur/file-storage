@@ -1,4 +1,4 @@
-import { Bell } from '@/lib/icons'
+import { Bell, Files } from '@/lib/icons'
 
 import { Logo, Sidebar, SidebarItem, SidebarLabel } from '@/components'
 
@@ -20,11 +20,11 @@ export const DashboardSidebar = () => {
             label='Dashboard'
             icon={<Bell size={ICON_SIZE} />}
           />
-          <SidebarLabel label='Image transformations' />
+          <SidebarLabel label='Storage' />
           <SidebarItem
             href='/dashboard/files'
-            label='Images'
-            icon={<Bell size={ICON_SIZE} />}
+            label='Files'
+            icon={<Files size={ICON_SIZE} />}
           />
         </ScrollArea>
       </div>

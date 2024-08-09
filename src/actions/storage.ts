@@ -10,7 +10,7 @@ export const saveFile = async (formData: FormData) => {
   const authSupabase = createClient()
   const { data: userData, error: userError } = await authSupabase.auth.getUser()
 
-  const file = formData.get('image') as File
+  const file = formData.get('file') as File
   const fileName = file.name
 
   // todo: handle errors

@@ -1,6 +1,6 @@
 'use client'
 
-import { Text } from '@/lib/icons'
+import { File, Image as ImageIcon, Text } from '@/lib/icons'
 import type { FileObject } from '@/lib/storage'
 import { bytesToSize, formatDate } from '@/lib/utils'
 import { useCallback, useEffect, useState } from 'react'
@@ -12,34 +12,38 @@ import { fetchUrl } from '@/actions/storage'
 import { FileDetailsDrawer } from './FileDetailsDrawer'
 
 type FileListRowProps = {
-  image: FileObject
+  file: FileObject
 }
 
-export const FileListRow = ({ image }: FileListRowProps) => {
+export const FileListRow = ({ file }: FileListRowProps) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [imageData, setImageData] = useState({
-    ...image,
+  const [fileData, setFileData] = useState({
+    ...file,
     url: '',
   })
 
   const fetchImage = useCallback(async () => {
-    const { data } = await fetchUrl(image.name)
+    const { data } = await fetchUrl(file.name)
 
-    setImageData((prev) => ({ ...prev, url: data?.publicUrl }))
-  }, [image.name])
+    setFileData((prev) => ({ ...prev, url: data?.publicUrl || '' }))
+  }, [file.name])
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && file?.metadata?.mimetype.includes('image')) {
       fetchImage()
     }
-  }, [isOpen, fetchImage])
+  }, [isOpen, fetchImage, file?.metadata?.mimetype])
 
   return (
     <TableRow>
-      <TableCell>{image.name}</TableCell>
-      <TableCell>{formatDate(image.created_at)}</TableCell>
-      <TableCell>{formatDate(image.updated_at)}</TableCell>
-      <TableCell>{bytesToSize(image.metadata?.size)}</TableCell>
+      <TableCell>
+        {file.metadata?.mimetype.includes('image') ? <ImageIcon /> : <File />}
+      </TableCell>
+      <TableCell>{file.name}</TableCell>
+      <TableCell>{formatDate(file.created_at)}</TableCell>
+      <TableCell>{formatDate(file.updated_at)}</TableCell>
+      <TableCell>{file.metadata?.mimetype}</TableCell>
+      <TableCell>{bytesToSize(file.metadata?.size)}</TableCell>
       <TableCell>
         <FileDetailsDrawer
           trigger={
@@ -47,7 +51,7 @@ export const FileListRow = ({ image }: FileListRowProps) => {
               <Text size={16} />
             </Button>
           }
-          imageData={imageData}
+          fileData={fileData}
           open={isOpen}
           onOpenChange={setIsOpen}
         />
