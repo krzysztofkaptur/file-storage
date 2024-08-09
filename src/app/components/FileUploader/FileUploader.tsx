@@ -1,11 +1,11 @@
 'use client'
 
+import { useDropzone } from '@/lib/fileUploader'
 import { File } from '@/lib/icons'
-import { createClient } from '@/lib/utils/supabase/client'
+import { bytesToSize } from '@/lib/utils'
 import { useEffect, useState, useTransition } from 'react'
-import { useDropzone } from 'react-dropzone'
 
-import { Card, CardContent, TextEllipsis } from '@/ui'
+import { Card, CardContent, useToast } from '@/ui'
 
 import { saveFile } from '@/actions/storage'
 
@@ -14,6 +14,7 @@ import { Thumb } from './parts'
 type FileProps = (File & { preview: string })[]
 
 type FileUploaderProps = {
+  maxSize?: number
   onFinish: () => void
   render: ({
     handleSaveFile,
@@ -24,12 +25,26 @@ type FileUploaderProps = {
   }) => JSX.Element
 }
 
-export const FileUploader = ({ render, onFinish }: FileUploaderProps) => {
+export const FileUploader = ({
+  render,
+  maxSize = Infinity,
+  onFinish,
+}: FileUploaderProps) => {
   const [pending, startTransition] = useTransition()
   const [files, setFiles] = useState<FileProps>([])
-  const supabase = createClient()
+  const { toast } = useToast()
 
   const { getRootProps, getInputProps } = useDropzone({
+    maxSize: maxSize,
+    onDropRejected(fileRejections) {
+      for (let i = 0; i < fileRejections.length; i++) {
+        toast({
+          title: fileRejections[i].file.name,
+          description: fileRejections[i].errors[0].message,
+          variant: 'destructive',
+        })
+      }
+    },
     onDrop: (acceptedFiles) => {
       setFiles(
         acceptedFiles.map((file) => {
@@ -60,11 +75,16 @@ export const FileUploader = ({ render, onFinish }: FileUploaderProps) => {
     <>
       <div className='flex flex-col gap-8'>
         <Card>
-          <CardContent>
+          <CardContent className='p-0'>
             <div>
-              <div {...getRootProps({ className: 'dropzone' })}>
+              <div
+                {...getRootProps({ className: 'dropzone p-6 cursor-pointer' })}
+              >
                 <input {...getInputProps()} />
-                <p>Drag & drop some files here, or click to select files</p>
+                <p className='text-sm'>
+                  Drag & drop some files here, or click to select files (MAX{' '}
+                  {bytesToSize(maxSize)} each)
+                </p>
               </div>
             </div>
           </CardContent>

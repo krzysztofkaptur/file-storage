@@ -1,5 +1,6 @@
 'use client'
 
+import { CONFIG } from 'config'
 import { useState } from 'react'
 
 import { Button, Drawer, FileUploader } from '@/components'
@@ -28,6 +29,7 @@ export const FileUploadDrawer = () => {
             </SheetHeader>
             <div className='flex flex-col flex-1 justify-between'>
               <FileUploader
+                maxSize={CONFIG.MAX_FILE_SIZE}
                 onFinish={closeDrawer}
                 render={({ handleSaveFile, pending }) => {
                   return (
