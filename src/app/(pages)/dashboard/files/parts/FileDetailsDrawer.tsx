@@ -25,11 +25,20 @@ export const FileDetailsDrawer = ({
 }: FileDetailsDrawerProps) => {
   const [pending, startTransition] = useTransition()
   const handleDelete = () => {
-    startTransition(() => deleteFile([imageData.name]))
+    startTransition(async () => {
+      // todo: handle error
+      const { data, error } = await deleteFile(imageData.name)
+    })
   }
 
   const handleDownload = async () => {
-    const { data } = await downloadFile(imageData.name)
+    const { data, error } = await downloadFile(imageData.name)
+
+    // todo: handle error
+    if (error) {
+      console.log(error)
+      return
+    }
 
     downloadFileUtil(imageData.name, data.publicUrl)
   }

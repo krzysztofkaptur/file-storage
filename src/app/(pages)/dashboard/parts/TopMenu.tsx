@@ -11,7 +11,6 @@ export const DashboardTopMenu = async () => {
 
   const { data, error } = await supabase.auth.getUser()
 
-  console.log({ data, error })
   if (error || !data?.user) {
     redirect('/auth/login')
   }
@@ -32,7 +31,11 @@ export const DashboardTopMenu = async () => {
           trigger={
             <div className='flex items-center gap-4'>
               <Text>{data.user.email}</Text>
-              <Avatar src='' alt='' fallback='KK' />
+              <Avatar
+                src={data.user?.user_metadata?.avatar_url}
+                alt=''
+                fallback='KK'
+              />
             </div>
           }
         >

@@ -1,3 +1,5 @@
+'use client'
+
 import { PropsWithChildren } from 'react'
 
 import { Button as ButtonUI, Spinner } from '@/ui'
@@ -12,8 +14,10 @@ export const Button = ({
   ...props
 }: ButtonPropsType) => {
   return (
-    <ButtonUI type={type} {...props}>
-      {!isLoading ? children : <Spinner />}
-    </ButtonUI>
+    <>
+      <ButtonUI type={type} disabled={isLoading} {...props}>
+        {!isLoading ? children : <Spinner />}
+      </ButtonUI>
+    </>
   )
 }

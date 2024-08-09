@@ -1,5 +1,6 @@
 'use client'
 
+import { createClient } from '@/lib/utils/supabase/client'
 import { useEffect, useState, useTransition } from 'react'
 import { useDropzone } from 'react-dropzone'
 
@@ -25,6 +26,7 @@ type FileUploaderProps = {
 export const FileUploader = ({ render, onFinish }: FileUploaderProps) => {
   const [pending, startTransition] = useTransition()
   const [files, setFiles] = useState<FileProps>([])
+  const supabase = createClient()
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFiles) => {
@@ -38,12 +40,19 @@ export const FileUploader = ({ render, onFinish }: FileUploaderProps) => {
     },
   })
 
+  // todo: name this hook properly
   useEffect(() => {
     return () => files.forEach((file) => URL.revokeObjectURL(file.preview))
   }, [files])
 
   const handleSaveFile = async () => {
     const form = new FormData()
+    const { data, error } = await supabase.auth.getSession()
+
+    if (error) {
+      // todo: handle error
+      console.log(error)
+    }
 
     form.append('image', files[0])
     startTransition(() => saveFile(form).then(() => onFinish()))

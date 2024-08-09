@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 }
 
 export default async function AuthLayout({ children }: PropsWithChildren) {
+  // todo: remove getUser from layout (seems like it's not recommended)
   const supabase = createClient()
 
   const { error } = await supabase.auth.getUser()

@@ -2,7 +2,7 @@
 
 import { LoginSchema, schemaResolver } from '@/lib/validation'
 import Link from 'next/link'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Button, Divider, Form, InputGroup, Text } from '@/components'
@@ -12,16 +12,19 @@ import { login } from '@/actions/auth'
 type LoginContentProps = PropsWithChildren<{}>
 
 export const LoginContent = ({ children }: LoginContentProps) => {
+  const [pending, startTransition] = useTransition()
   const form = useForm({
     resolver: schemaResolver(LoginSchema),
   })
 
   const onSubmit = form.handleSubmit(async ({ email, password }) => {
-    const response = await login({ email, password })
+    startTransition(async () => {
+      const response = await login({ email, password })
 
-    if (response?.message) {
-      form.setError('email', { type: 'custom', message: response.message })
-    }
+      if (response?.message) {
+        form.setError('email', { type: 'custom', message: response.message })
+      }
+    })
   })
 
   return (
@@ -44,10 +47,9 @@ export const LoginContent = ({ children }: LoginContentProps) => {
             type='password'
             {...form.register('password')}
           />
-          <Button type='submit'>Sign in</Button>
-          <Text className='text-center text-sm'>
-            <Link href='/'>Forgot password</Link>
-          </Text>
+          <Button type='submit' isLoading={pending}>
+            Sign in
+          </Button>
           <Divider />
           <Text className='text-sm'>
             Don&apos;t have an account{' '}
