@@ -3,6 +3,7 @@
 import { useDropzone } from '@/lib/fileUploader'
 import { File } from '@/lib/icons'
 import { bytesToSize } from '@/lib/utils'
+import Image from 'next/image'
 import { useState, useTransition } from 'react'
 
 import { Card, CardContent, useToast } from '@/ui'
@@ -108,13 +109,14 @@ export const FileUploader = ({
                 >
                   {file.type.includes('image') ? (
                     <>
-                      {/* eslint-disable-next-line */}
-                      <img
+                      <Image
                         alt={file.name}
                         src={file.preview}
                         onLoad={() => {
                           URL.revokeObjectURL(file.preview)
                         }}
+                        width={100}
+                        height={100}
                       />
                     </>
                   ) : (
