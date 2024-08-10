@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils'
 import { PropsWithChildren } from 'react'
 
 import { Text } from '@/components'
@@ -9,7 +10,7 @@ type PageHeaderProps = PropsWithChildren<{
 
 export const PageHeader = ({ title, className, children }: PageHeaderProps) => {
   return (
-    <header className={`pb-8 ${className}`}>
+    <header className={cn('pb-8', className)}>
       <Text variant='h1' className='font-bold uppercase'>
         {title}
       </Text>

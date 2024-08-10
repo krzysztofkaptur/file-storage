@@ -37,7 +37,7 @@ export const fetchFiles = async (limit: number = 100, offset: number = 0) => {
     .list(userData?.user?.id, {
       limit,
       offset,
-      sortBy: { column: 'name', order: 'asc' },
+      sortBy: { column: 'created_at', order: 'desc' },
     })
 
   return { data, error }

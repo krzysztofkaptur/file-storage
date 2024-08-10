@@ -9,6 +9,7 @@ import { FileUploadDrawer, FilesList } from './parts'
 export default async function FilesPage({}: PageProps<{}, {}>) {
   const { data, error } = await fetchFiles()
 
+  // todo: handle error
   if (error) {
     return <h1>Error</h1>
   }

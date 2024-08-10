@@ -1,12 +1,21 @@
+import { TextEllipsis } from '@/app/components/ui'
 import { Bell } from '@/lib/icons'
 
-import { PageHeader } from '@/components'
+import { Card, PageHeader } from '@/components'
+
+import { fetchFiles } from '@/actions/storage'
 
 import { DashboardCard } from './parts'
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const { data: files, error } = await fetchFiles(10)
+
+  if (error) {
+    return <h1>Error</h1>
+  }
+
   return (
-    <>
+    <div className='flex flex-col gap-8'>
       <PageHeader title='Dashboard' />
 
       <section className='flex gap-4'>
@@ -35,6 +44,17 @@ export default function DashboardPage() {
           icon={<Bell size={16} className='text-muted-foreground' />}
         />
       </section>
-    </>
+      <section>
+        <Card title='Recently added files'>
+          <div className='flex flex-col gap-4'>
+            {files?.map((file) => (
+              <TextEllipsis key={file.name}>
+                <p className='text-sm'>{file.name}</p>
+              </TextEllipsis>
+            ))}
+          </div>
+        </Card>
+      </section>
+    </div>
   )
 }
