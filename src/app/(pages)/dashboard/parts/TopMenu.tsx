@@ -30,7 +30,7 @@ export const DashboardTopMenu = async () => {
         <DropdownMenu
           trigger={
             <div className='flex items-center gap-4'>
-              <Text>{data.user.email}</Text>
+              <Text className='text-sm'>{data.user.email}</Text>
               <Avatar
                 src={data.user?.user_metadata?.avatar_url}
                 alt=''
