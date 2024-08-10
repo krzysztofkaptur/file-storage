@@ -3,7 +3,7 @@
 import { useDropzone } from '@/lib/fileUploader'
 import { File } from '@/lib/icons'
 import { bytesToSize } from '@/lib/utils'
-import { useEffect, useState, useTransition } from 'react'
+import { useState, useTransition } from 'react'
 
 import { Card, CardContent, useToast } from '@/ui'
 
@@ -46,20 +46,20 @@ export const FileUploader = ({
       }
     },
     onDrop: (acceptedFiles) => {
-      setFiles(
-        acceptedFiles.map((file) => {
-          return Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        })
+      // filter files that already exists
+      const result = acceptedFiles.filter((aF) =>
+        files.every((f) => f.name !== aF.name)
       )
+
+      const newFiles = result.map((file) => {
+        return Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        })
+      })
+
+      setFiles([...files, ...newFiles])
     },
   })
-
-  // todo: name this hook properly
-  useEffect(() => {
-    return () => files.forEach((file) => URL.revokeObjectURL(file.preview))
-  }, [files])
 
   const handleSaveFile = async () => {
     await files.map((file) => {
@@ -69,6 +69,10 @@ export const FileUploader = ({
       // todo: wait for every file to upload before hiding the drawer
       startTransition(() => saveFile(form).then(() => onFinish()))
     })
+  }
+
+  const handelRemoveFile = (fname: string) => {
+    setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fname))
   }
 
   return (
@@ -94,28 +98,31 @@ export const FileUploader = ({
             return (
               <div
                 key={file.name}
-                className='flex flex-col justify-between flex-1 items-center'
+                className='flex flex-col justify-between flex-1 items-center relative'
               >
-                {file.type.includes('image') ? (
-                  <Thumb
-                    key={file.name}
-                    className='flex flex-1 items-center justify-center'
-                  >
-                    {/* eslint-disable-next-line */}
-                    <img
-                      alt={file.name}
-                      src={file.preview}
-                      onLoad={() => {
-                        URL.revokeObjectURL(file.preview)
-                      }}
-                    />
-                  </Thumb>
-                ) : (
-                  <div className='flex flex-1 items-center justify-center'>
-                    <File />
-                  </div>
-                )}
-                <p>{file.name}</p>
+                <Thumb
+                  key={file.name}
+                  name={file.name}
+                  className='flex flex-1 items-center justify-center'
+                  deleteFile={handelRemoveFile}
+                >
+                  {file.type.includes('image') ? (
+                    <>
+                      {/* eslint-disable-next-line */}
+                      <img
+                        alt={file.name}
+                        src={file.preview}
+                        onLoad={() => {
+                          URL.revokeObjectURL(file.preview)
+                        }}
+                      />
+                    </>
+                  ) : (
+                    <div className='flex flex-1 items-center justify-center'>
+                      <File />
+                    </div>
+                  )}
+                </Thumb>
               </div>
             )
           })}

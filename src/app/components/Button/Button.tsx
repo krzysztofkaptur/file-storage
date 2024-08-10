@@ -5,7 +5,9 @@ import { PropsWithChildren } from 'react'
 import { Button as ButtonUI, Spinner } from '@/ui'
 import type { ButtonProps } from '@/ui'
 
-type ButtonPropsType = PropsWithChildren<ButtonProps & { isLoading?: boolean }>
+type ButtonPropsType = PropsWithChildren<
+  ButtonProps & { isLoading?: boolean; isRound?: boolean }
+>
 
 export const Button = ({
   isLoading = false,
