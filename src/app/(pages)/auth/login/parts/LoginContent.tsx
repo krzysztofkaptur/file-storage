@@ -52,7 +52,7 @@ export const LoginContent = ({ children }: LoginContentProps) => {
           </Button>
           <Divider />
           <Text className='text-sm'>
-            Don&apos;t have an account{' '}
+            Don&apos;t have an account?{' '}
             <Link href='/auth/register'>Register</Link>
           </Text>
         </div>

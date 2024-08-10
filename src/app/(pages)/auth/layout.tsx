@@ -21,8 +21,10 @@ export default async function AuthLayout({ children }: PropsWithChildren) {
   return (
     <main>
       <section className='flex min-h-screen w-full'>
-        <div className='hidden flex-1 items-center justify-center rounded-r-2xl bg-slate-300 lg:flex'>
-          banner
+        <div className='hidden flex-1 justify-center rounded-r-2xl bg-auth-banner bg-no-repeat bg-cover lg:flex bg-bottom text-xl italic items-end'>
+          <h1 className=' items-center pb-4'>
+            The place to dump your important files
+          </h1>
         </div>
         <div className='flex flex-1 items-center justify-center'>
           {children}
