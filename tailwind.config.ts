@@ -20,6 +20,7 @@ const config = {
     extend: {
       backgroundImage: {
         'auth-banner': "url('/images/auth-banner.jpg')",
+        'landing-banner': "url('/images/landing-banner.png')",
       },
       colors: {
         border: 'hsl(var(--border))',

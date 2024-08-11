@@ -1,6 +1,6 @@
 import { ForwardedRef, forwardRef } from 'react'
 
-import { Label, Input, Error } from '@/ui'
+import { Error, Input, Label } from '@/ui'
 
 import type { InputGroupProps } from './types'
 
@@ -18,7 +18,7 @@ const InputGroup = forwardRef(
 
     return (
       <div>
-        <Label htmlFor={id ?? name} className='text-gray-700'>
+        <Label htmlFor={id ?? name} className='text-gray-300'>
           {required ? `${label}*` : label}
         </Label>
         <Input
