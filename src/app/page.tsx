@@ -20,8 +20,8 @@ export default async function Home() {
           )}
         </div>
       </TopMenu>
-      <div className='grid grid-cols-2 min-h-[calc(100vh-70px)]'>
-        <div className='flex items-center justify-center'>
+      <div className='md:grid grid-cols-2 min-h-[calc(100vh-70px)] relative'>
+        <div className='min-h-[calc(100vh-70px)] flex items-center justify-center'>
           <Text
             variant='h1'
             className='text-3xl px-4 flex flex-col gap-4 items-end'
@@ -31,7 +31,7 @@ export default async function Home() {
             <span>Anywhere</span>
           </Text>
         </div>
-        <div className='bg-landing-banner bg-no-repeat bg-center bg-cover'></div>
+        <div className='opacity-20 md:opacity-100 bg-landing-banner bg-no-repeat bg-center bg-cover absolute left-0 right-0 bottom-0 top-0 md:relative -z-10'></div>
       </div>
     </main>
   )

@@ -5,7 +5,7 @@ import type { FileObject } from '@/lib/storage'
 import { bytesToSize, formatDate } from '@/lib/utils'
 import { useCallback, useEffect, useState } from 'react'
 
-import { Button, TableCell, TableRow } from '@/ui'
+import { Button, TableCell, TableRow, TextEllipsis } from '@/ui'
 
 import { fetchUrl } from '@/actions/storage'
 
@@ -36,13 +36,19 @@ export const FileListRow = ({ file }: FileListRowProps) => {
 
   return (
     <TableRow>
-      <TableCell>
+      <TableCell className='hidden sm:table-cell'>
         {file.metadata?.mimetype.includes('image') ? <ImageIcon /> : <File />}
       </TableCell>
-      <TableCell>{file.name}</TableCell>
-      <TableCell>{formatDate(file.created_at)}</TableCell>
-      <TableCell>{formatDate(file.updated_at)}</TableCell>
-      <TableCell>{file.metadata?.mimetype}</TableCell>
+      <TableCell className='break-all'>{file.name}</TableCell>
+      <TableCell className='hidden lg:table-cell'>
+        {formatDate(file.created_at)}
+      </TableCell>
+      <TableCell className='hidden lg:table-cell'>
+        {formatDate(file.updated_at)}
+      </TableCell>
+      <TableCell className='hidden lg:table-cell'>
+        {file.metadata?.mimetype}
+      </TableCell>
       <TableCell>{bytesToSize(file.metadata?.size)}</TableCell>
       <TableCell>
         <FileDetailsDrawer

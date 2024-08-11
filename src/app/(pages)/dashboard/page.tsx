@@ -18,7 +18,7 @@ export default async function DashboardPage() {
     <div className='flex flex-col gap-8'>
       <PageHeader title='Dashboard' />
 
-      <section className='flex gap-4'>
+      <section className='flex gap-4 flex-wrap'>
         <DashboardCard
           title='Total Revenue'
           content='$44.000'

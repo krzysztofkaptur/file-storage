@@ -5,7 +5,7 @@ import { DashboardSidebar, DashboardTopMenu } from './parts'
 export default async function DashboardLayout({ children }: PropsWithChildren) {
   return (
     <div className='flex min-h-screen'>
-      <DashboardSidebar />
+      <DashboardSidebar className='hidden md:block md:border-r' />
 
       <div className='flex-1'>
         <DashboardTopMenu />

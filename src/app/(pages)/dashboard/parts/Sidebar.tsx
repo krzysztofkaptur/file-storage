@@ -1,4 +1,4 @@
-import { Bell, Files } from '@/lib/icons'
+import { Files, LayoutDashboard } from '@/lib/icons'
 
 import { Logo, Sidebar, SidebarItem, SidebarLabel } from '@/components'
 
@@ -6,9 +6,13 @@ import { ScrollArea } from '@/ui'
 
 const ICON_SIZE = 14
 
-export const DashboardSidebar = () => {
+type DashboardSidebarProps = {
+  className?: string
+}
+
+export const DashboardSidebar = ({ className }: DashboardSidebarProps) => {
   return (
-    <Sidebar>
+    <Sidebar className={className}>
       <div className='flex items-center justify-center p-4'>
         <Logo />
       </div>
@@ -18,7 +22,7 @@ export const DashboardSidebar = () => {
           <SidebarItem
             href='/dashboard'
             label='Dashboard'
-            icon={<Bell size={ICON_SIZE} />}
+            icon={<LayoutDashboard size={ICON_SIZE} />}
           />
           <SidebarLabel label='Storage' />
           <SidebarItem

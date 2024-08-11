@@ -6,6 +6,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  TextEllipsis,
   Card as UiCard,
 } from '@/ui'
 
@@ -19,7 +20,11 @@ export const Card = ({ children, title, description, footer }: CardProps) => {
   return (
     <UiCard className='w-[350px]'>
       <CardHeader>
-        {title && <CardTitle>{title}</CardTitle>}
+        {title && (
+          <TextEllipsis>
+            <CardTitle>{title}</CardTitle>
+          </TextEllipsis>
+        )}
         {description && <CardDescription>{description}</CardDescription>}
       </CardHeader>
       <CardContent>{children}</CardContent>
