@@ -1,21 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Error } from './Error'
+import { ThemeToggle } from './'
 
 const meta = {
-  title: 'Ui/Error',
-  component: Error,
+  title: 'Components/ThemeToggle',
+  component: ThemeToggle,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof Error>
+} satisfies Meta<typeof ThemeToggle>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    error: 'test kek',
-  },
+  args: {},
 }

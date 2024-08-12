@@ -1,21 +1,27 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Error } from './Error'
+import { TopMenu } from './'
 
 const meta = {
-  title: 'Ui/Error',
-  component: Error,
+  title: 'Components/TopMenu',
+  component: TopMenu,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof Error>
+} satisfies Meta<typeof TopMenu>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
+const content = (
+  <>
+    <p>some content</p>
+  </>
+)
+
 export const Default: Story = {
   args: {
-    error: 'test kek',
+    children: content,
   },
 }

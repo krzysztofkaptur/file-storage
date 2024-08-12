@@ -5,7 +5,7 @@ import type { FileObject } from '@/lib/storage'
 import { bytesToSize, formatDate } from '@/lib/utils'
 import { useCallback, useEffect, useState } from 'react'
 
-import { Button, TableCell, TableRow, TextEllipsis } from '@/ui'
+import { Button, TableCell, TableRow } from '@/ui'
 
 import { fetchUrl } from '@/actions/storage'
 
@@ -47,7 +47,7 @@ export const FileListRow = ({ file }: FileListRowProps) => {
         {formatDate(file.updated_at)}
       </TableCell>
       <TableCell className='hidden lg:table-cell'>
-        {file.metadata?.mimetype}
+        {file.metadata?.mimetype.split('/')[1]}
       </TableCell>
       <TableCell>{bytesToSize(file.metadata?.size)}</TableCell>
       <TableCell>

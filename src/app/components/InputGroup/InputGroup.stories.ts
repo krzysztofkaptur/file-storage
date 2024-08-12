@@ -1,12 +1,12 @@
 // todo: add password input
+import type { Meta, StoryObj } from '@storybook/react'
 
 import { InputGroup } from './InputGroup'
-
-import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
   title: 'Components/InputGroup',
   component: InputGroup,
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },

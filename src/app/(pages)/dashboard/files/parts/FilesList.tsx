@@ -28,7 +28,7 @@ export const FilesList = ({ files }: FilesListProps) => {
             <TableHead></TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody className=''>
+        <TableBody>
           {files?.map((file) => <FileListRow file={file} key={file.id} />)}
         </TableBody>
       </Table>

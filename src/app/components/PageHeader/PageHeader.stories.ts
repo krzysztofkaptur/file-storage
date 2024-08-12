@@ -5,6 +5,7 @@ import { PageHeader } from './'
 const meta = {
   title: 'Components/PageHeader',
   component: PageHeader,
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },

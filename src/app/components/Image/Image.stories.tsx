@@ -1,21 +1,24 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Error } from './Error'
+import { Image } from './'
 
 const meta = {
-  title: 'Ui/Error',
-  component: Error,
+  title: 'Components/Image',
+  component: Image,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof Error>
+} satisfies Meta<typeof Image>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    error: 'test kek',
+    src: 'https://github.com/shadcn.png',
+    width: 100,
+    height: 100,
+    alt: 'some alt',
   },
 }

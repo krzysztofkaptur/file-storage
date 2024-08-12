@@ -1,12 +1,11 @@
-import { Badge, Card } from '@/components'
-
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Default as BadgeDefault } from '../Badge/Badge.stories'
+import { Card } from '@/components'
 
 const meta = {
   title: 'Components/Card',
   component: Card,
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },
@@ -19,7 +18,7 @@ type Story = StoryObj<typeof Card>
 export const Default: Story = {
   render: (args) => (
     <Card {...args}>
-      <Badge {...BadgeDefault.args} />
+      <p>content</p>
     </Card>
   ),
 }

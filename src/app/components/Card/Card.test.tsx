@@ -1,9 +1,8 @@
-import { describe, test, expect, afterEach } from 'vitest'
-import { render, screen, cleanup } from '@testing-library/react'
 import { composeStories } from '@storybook/react'
+import { cleanup, render, screen } from '@testing-library/react'
+import { afterEach, describe, expect, test } from 'vitest'
 
 import * as cardStories from './Card.stories'
-import * as badgeStories from '../Badge/Badge.stories'
 
 const { Default, WithTitle, WithDescription, WithFooter } =
   composeStories(cardStories)
@@ -14,7 +13,7 @@ describe('Card', () => {
   test('should render content', () => {
     render(<Default />)
 
-    expect(screen.getByText(badgeStories.Default.args.text)).toBeVisible()
+    expect(screen.getByText('content')).toBeVisible()
   })
 
   test('should render title', () => {
