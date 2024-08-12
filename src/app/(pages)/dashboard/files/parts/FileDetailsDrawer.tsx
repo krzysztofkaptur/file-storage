@@ -3,10 +3,9 @@
 import { Download, File } from '@/lib/icons'
 import type { FileObject } from '@/lib/storage'
 import { bytesToSize, downloadFile as downloadFileUtil } from '@/lib/utils'
-import Image from 'next/image'
 import { useTransition } from 'react'
 
-import { Button, Drawer } from '@/components'
+import { Button, Drawer, Image } from '@/components'
 import type { DrawerProps } from '@/components'
 
 import { SheetDescription, SheetFooter, SheetHeader, SheetTitle } from '@/ui'
