@@ -5,5 +5,8 @@
     "prettier",
     "plugin:storybook/recommended",
     "plugin:storybook/recommended"
-  ]
+  ],
+  "rules": {
+    "react/no-unescaped-entities": 0
+  }
 }
