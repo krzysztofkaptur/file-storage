@@ -1,14 +1,13 @@
 'use server'
 
 import { supabase } from '@/lib/storage'
-import { createClient } from '@/lib/utils/supabase/server'
+import { fetchMe } from '@/lib/utils/supabase/server'
 import { revalidatePath } from 'next/cache'
 
 const FILE_STORAGE = process.env.FILE_STORAGE!
 
 export const saveFile = async (formData: FormData) => {
-  const authSupabase = createClient()
-  const { data: userData, error: userError } = await authSupabase.auth.getUser()
+  const { data: userData, error: userError } = await fetchMe()
 
   const file = formData.get('file') as File
   const fileName = file.name
@@ -25,8 +24,7 @@ export const saveFile = async (formData: FormData) => {
 }
 
 export const fetchFiles = async (limit: number = 100, offset: number = 0) => {
-  const authSupabase = createClient()
-  const { data: userData, error: userError } = await authSupabase.auth.getUser()
+  const { data: userData, error: userError } = await fetchMe()
 
   if (userError) {
     return { data: null, error: userError }
@@ -44,8 +42,7 @@ export const fetchFiles = async (limit: number = 100, offset: number = 0) => {
 }
 
 export const fetchUrl = async (fileName: string) => {
-  const authSupabase = createClient()
-  const { data: userData, error: userError } = await authSupabase.auth.getUser()
+  const { data: userData, error: userError } = await fetchMe()
 
   if (userError) {
     return { data: null, error: userError }
@@ -59,8 +56,7 @@ export const fetchUrl = async (fileName: string) => {
 }
 
 export const deleteFile = async (fileName: string) => {
-  const authSupabase = createClient()
-  const { data: userData, error: userError } = await authSupabase.auth.getUser()
+  const { data: userData, error: userError } = await fetchMe()
 
   if (userError) {
     return { data: null, error: userError }
@@ -76,8 +72,7 @@ export const deleteFile = async (fileName: string) => {
 }
 
 export const downloadFile = async (fileName: string) => {
-  const authSupabase = createClient()
-  const { data: userData, error: userError } = await authSupabase.auth.getUser()
+  const { data: userData, error: userError } = await fetchMe()
 
   if (userError) {
     return { data: null, error: userError }

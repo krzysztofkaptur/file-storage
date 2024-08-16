@@ -27,3 +27,13 @@ export function createClient() {
     }
   )
 }
+
+export async function fetchMe() {
+  const authSupabase = createClient()
+  const { data, error } = await authSupabase.auth.getUser()
+
+  return {
+    data,
+    error,
+  }
+}

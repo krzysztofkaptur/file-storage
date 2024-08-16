@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/utils/supabase/server'
+import { fetchMe } from '@/lib/utils/supabase/server'
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import { PropsWithChildren } from 'react'
@@ -10,9 +10,7 @@ export const metadata: Metadata = {
 
 export default async function AuthLayout({ children }: PropsWithChildren) {
   // todo: remove getUser from layout (seems like it's not recommended)
-  const supabase = createClient()
-
-  const { error } = await supabase.auth.getUser()
+  const { error } = await fetchMe()
 
   if (!error) {
     redirect('/dashboard')
@@ -21,7 +19,7 @@ export default async function AuthLayout({ children }: PropsWithChildren) {
   return (
     <main>
       <section className='flex min-h-screen w-full'>
-        <div className='hidden flex-1 justify-center rounded-r-2xl bg-auth-banner bg-no-repeat bg-cover lg:flex bg-bottom text-xl italic items-end'>
+        <div className='hidden flex-1 items-end justify-center rounded-r-2xl bg-auth-banner bg-cover bg-bottom bg-no-repeat text-xl italic lg:flex'>
           <h1 className=' items-center pb-4'>
             The place to dump your important files
           </h1>

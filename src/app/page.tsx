@@ -1,12 +1,10 @@
-import { createClient } from '@/lib/utils/supabase/server'
+import { fetchMe } from '@/lib/utils/supabase/server'
 import Link from 'next/link'
 
 import { Logo, Text, TopMenu } from '@/components'
 
 export default async function Home() {
-  const supabase = createClient()
-
-  const { error } = await supabase.auth.getUser()
+  const { error } = await fetchMe()
 
   return (
     <main className='min-h-screen'>
@@ -20,18 +18,18 @@ export default async function Home() {
           )}
         </div>
       </TopMenu>
-      <div className='md:grid grid-cols-2 min-h-[calc(100vh-70px)] relative'>
-        <div className='min-h-[calc(100vh-70px)] flex items-center justify-center'>
+      <div className='relative min-h-[calc(100vh-70px)] grid-cols-2 md:grid'>
+        <div className='flex min-h-[calc(100vh-70px)] items-center justify-center'>
           <Text
             variant='h1'
-            className='text-3xl px-4 flex flex-col gap-4 items-end'
+            className='flex flex-col items-end gap-4 px-4 text-3xl'
           >
             <span>Secure Your Files</span>
             <span>Anytime</span>
             <span>Anywhere</span>
           </Text>
         </div>
-        <div className='opacity-20 md:opacity-100 bg-landing-banner bg-no-repeat bg-center bg-cover absolute left-0 right-0 bottom-0 top-0 md:relative -z-10'></div>
+        <div className='absolute bottom-0 left-0 right-0 top-0 -z-10 bg-landing-banner bg-cover bg-center bg-no-repeat opacity-20 md:relative md:opacity-100'></div>
       </div>
     </main>
   )

@@ -1,5 +1,5 @@
 import { Bell, Mail } from '@/lib/icons'
-import { createClient } from '@/lib/utils/supabase/server'
+import { fetchMe } from '@/lib/utils/supabase/server'
 import { redirect } from 'next/navigation'
 
 import { Avatar, DropdownMenu, Text, ThemeToggle, TopMenu } from '@/components'
@@ -12,9 +12,7 @@ import {
 } from '../parts'
 
 export const DashboardTopMenu = async () => {
-  const supabase = createClient()
-
-  const { data, error } = await supabase.auth.getUser()
+  const { data, error } = await fetchMe()
 
   if (error || !data?.user) {
     redirect('/auth/login')
@@ -35,7 +33,7 @@ export const DashboardTopMenu = async () => {
         <DropdownMenu
           trigger={
             <div className='flex items-center gap-4'>
-              <Text className='text-sm hidden md:block'>{data.user.email}</Text>
+              <Text className='hidden text-sm md:block'>{data.user.email}</Text>
               <Avatar
                 src={data.user?.user_metadata?.avatar_url}
                 alt=''
