@@ -39,13 +39,13 @@ export const FileDetailsDrawer = ({
       return
     }
 
-    downloadFileUtil(fileData.name, data.publicUrl)
+    downloadFileUtil(fileData.name, data as string)
   }
 
   return (
     <Drawer open={open} trigger={trigger} onOpenChange={onOpenChange}>
       {open && (
-        <div className='flex flex-col justify-between h-full'>
+        <div className='flex h-full flex-col justify-between'>
           <div className='flex flex-col gap-4'>
             <SheetHeader>
               <SheetTitle>File details</SheetTitle>
@@ -70,12 +70,12 @@ export const FileDetailsDrawer = ({
                 </div>
               )}
               <div className='flex gap-4'>
-                <span className='text-right flex-1'>Name</span>
-                <span className='break-all flex-1'>{fileData.name}</span>
+                <span className='flex-1 text-right'>Name</span>
+                <span className='flex-1 break-all'>{fileData.name}</span>
               </div>
               <div className='flex gap-4'>
-                <span className='text-right flex-1'>Size</span>
-                <span className='break-all flex-1'>
+                <span className='flex-1 text-right'>Size</span>
+                <span className='flex-1 break-all'>
                   {bytesToSize(fileData.metadata?.size)}
                 </span>
               </div>

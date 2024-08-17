@@ -78,11 +78,9 @@ export const downloadFile = async (fileName: string) => {
     return { data: null, error: userError }
   }
 
-  const { data } = supabase.storage
+  const { data, error } = await supabase.storage
     .from(FILE_STORAGE)
-    .getPublicUrl(`${userData?.user?.id}/${fileName}`, {
-      download: true,
-    })
+    .createSignedUrl(`${userData?.user?.id}/${fileName}`, 60)
 
-  return { data, error: null }
+  return { data: data?.signedUrl, error }
 }
