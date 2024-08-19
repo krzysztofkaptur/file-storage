@@ -1,12 +1,18 @@
 import { type CookieOptions, createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 
-export function createClient() {
+export function createClient({
+  supabaseUrl,
+  supabaseKey,
+}: {
+  supabaseUrl?: string
+  supabaseKey?: string
+} = {}) {
   const cookieStore = cookies()
 
   return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl ?? process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    supabaseKey ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         getAll() {
