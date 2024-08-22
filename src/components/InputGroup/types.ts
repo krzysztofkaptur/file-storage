@@ -1,4 +1,4 @@
-import type { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
+import type { FieldError, FieldErrorsImpl, Merge } from '@/lib/forms'
 
 // todo: get label and input props from Ui
 export type InputGroupProps = {

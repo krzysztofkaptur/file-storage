@@ -1,8 +1,9 @@
-import { TextEllipsis } from '@/app/components/ui'
-import { Bell } from '@/lib/icons'
 import { Metadata } from 'next'
 
+import { Bell } from '@/lib/icons'
+
 import { Card, PageHeader } from '@/components'
+import { TextEllipsis } from '@/components/ui'
 
 import { fetchFiles } from '@/actions/storage'
 

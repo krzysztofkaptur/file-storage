@@ -20,12 +20,12 @@
     "baseUrl": "src/",
     "paths": {
       "@/*": ["*"],
-      "@/components": ["app/components"],
-      "@/ui": ["app/components/ui"],
-      "@/providers": ["app/providers"],
-      "@/styles/*": ["app/styles/*"],
+      "@/components": ["components"],
+      "@/ui": ["components/ui"],
+      "@/providers": ["providers"],
+      "@/styles/*": ["styles/*"],
       "@/lib/*": ["lib/*"],
-      "@/hooks": ["app/hooks"],
+      "@/hooks": ["hooks"],
       "@/types": ["types"],
       "@/actions": ["actions"]
     },

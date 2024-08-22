@@ -1,5 +1,5 @@
+import { FieldValues, UseFormReturn } from '@/lib/forms'
 import { PropsWithChildren } from 'react'
-import { FieldValues, UseFormReturn } from 'react-hook-form'
 
 import { Form as FormUI } from '@/ui'
 

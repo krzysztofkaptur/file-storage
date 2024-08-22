@@ -1,9 +1,10 @@
 'use client'
 
-import { LoginSchema, schemaResolver } from '@/lib/validation'
 import Link from 'next/link'
 import { PropsWithChildren, useTransition } from 'react'
-import { useForm } from 'react-hook-form'
+
+import { useForm } from '@/lib/forms'
+import { LoginSchema, schemaResolver } from '@/lib/validation'
 
 import { Button, Divider, Form, InputGroup, Text } from '@/components'
 
